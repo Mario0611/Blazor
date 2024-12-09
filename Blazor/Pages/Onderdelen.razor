@@ -1,0 +1,99 @@
+@page "/Onderdelen"
+<h3>Onderdelen van tea-kwon-do</h3>
+
+<div class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="true">
+        Regels over heel tea-kwon-do
+    </button>
+    <ul class="dropdown-menu">
+        <ul class="list-group">
+            @foreach(string regel in showrules())
+            {
+                <li class="list-group-item">@regel</li>
+            } 
+        </ul>
+    </ul>
+</div>
+
+
+<div class="row">
+    <div class="col-6 col-sm-3">
+        <div class="card" style="width: 18rem;">
+            <img src="img/poomsea.jpg" class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title">poomsea aka vierhoeks training</h5>
+                <p class="card-text">
+                    dit deel is een schijngevecht met 4 personen link, rechts, voor u en achter u.
+                    Is ook wedstrijd gericht niveau in. Maar niet zo erg zoals bij sparring.
+                    dit kan je ook in groep doen van 3 personen max. dan doen je in sinc u poosea.
+                </p>
+                <a href="https://www.youtube.com/playlist?list=PLSFr5pEwo7gSwvfg4bjxoF3liyfJkCLAj" class="btn btn-primary">alle basic poomsea's en gevorderde</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-sm-3">
+        <div class="card" style="width: 18rem;">
+            <img src="img/sparring.jpg" class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title">Kyorugi aka sparring</h5>
+                <p class="card-text">
+                    dit deel is het intensiefste dat er is want je bent ingepakt in bescherming.
+                    dit doen ze voor deel veiligheid van de deelnemer.
+                    Omdat sommige trappen zware schade kunnen aanrichten zoals gekneusde ribben en hersenschudding.
+                </p>
+                <a href="https://www.youtube.com/watch?v=UudfGKT75K8" class="btn btn-primary">filmpje van enkel KO's</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-sm-3">
+        <div class="card" style="width: 18rem;">
+            <img src="img/breektest.jpg" class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title">Gye-pa aka Breektesten</h5>
+                <p class="card-text">
+                    dit deel is het laten zien van kracht en stijl voor planken te breken.
+                    dit is nogaltijd veiliger dan sparring maar er zijn nogaltijd kwetsures die men kan oplopen.
+                    Door middel van verkeert de trappen uit te voeren kan men de voet goed bezeren of zelfs de partner
+                </p>
+                <a href="https://www.youtube.com/watch?v=-dGji7DoHkM" class="btn btn-primary">filmpje van koreaanse breektechnieke</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-sm-3">
+        <div class="card" style="width: 18rem;">
+            <img src="img/hosinsul.jpg" class="card-img-top" width="100px">
+            <div class="card-body">
+                <h5 class="card-title">Hon-sin-sul aka Zelfverdediging</h5>
+                <p class="card-text">
+                    Dit deel is het leren verdedigen op het straat. wat moet ik doen in sommige situaties.
+                    In het filmpje hier onder ga je een filmpje vinden van de zware technieken die in mijn club gegeven worden.
+                    Dit youtube kanaal is van mijn trainer voor de studenten een beetje te helpen in de club krijgen deze de filmpjes door gestuurd.
+                </p>
+                <a href="https://www.youtube.com/watch?v=UChIq9Q99zA&list=PLb7aQgQggJ2gkyllg101UDgSQmQNniz5c&index=5" class="btn btn-primary">filmpje van een reeks Zelfverdediging</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private string _regels = "Basisregels";
+
+    public string regels
+    {
+        get { return _regels; }
+        set { _regels = value; }
+    }
+
+    public List<string> showrules()
+    {
+        List<string> strings = new List<string>
+        {
+            "Eerlijkheid",
+            "Etiquette",
+            "Zelfbeheersing",
+            "Bevorderen van collegialiteit/team/samenwerking",
+            "Doorzettingsvermogen"
+        };
+        return strings;
+    }
+}

@@ -1,0 +1,25 @@
+﻿@page "/Gordels"
+
+@using Blazor.Models
+
+
+<div class="accordion accordion-flush" id="accordionFlushExample">
+    @foreach (List<string> item in Gordel.gordels){
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree-@i" aria-expanded="false" aria-controls="flush-collapseThree-@i">
+                @item[0]
+            </button>
+            </h2>
+            <div id="flush-collapseThree-@i" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">@item[1]</div>
+            </div>
+        </div>
+        i++;
+     }
+</div>
+
+@code
+{
+    int i = 0;
+}

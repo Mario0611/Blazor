@@ -1,0 +1,109 @@
+﻿@page "/quiz"
+
+@using Blazor.Models
+
+<PageTitle>Quiz</PageTitle>
+
+<div class="text-center">
+    <h3 class="quiz-header">Koppel het Koreaanse woord aan de juiste vertaling!</h3>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col col-md-6 text-center">
+        <h4>Wat betekent dit Koreaanse woord?</h4>
+        <div class="track-titel text-center">
+            <p><strong>@CurrentWord.Korean</strong></p>
+        </div>
+    </div>
+</div>
+<div class="row justify-content-center">
+    <div class="col col-md-7 text-center">
+        <h4>Selecteer de juiste vertaling:</h4>
+        @foreach (var option in CurrentOptions)
+        {
+            <button class="btn bg-pink m-2" @onclick="() => SelectAnswer(option)">
+                @option
+            </button>
+        }
+    </div>
+</div>
+
+@if (!string.IsNullOrEmpty(Feedback))
+{
+    <div class="modal fade show" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="false" style="display: block;">
+        <div class="modal-dialog modal-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="text-white" id="feedbackModalLabel"><strong>Resultaat</strong></h5>
+                    <button type="button" class="btn-close" @onclick="CloseModal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    @((MarkupString)Feedback)
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn bg-close" @onclick="CloseModal">Opnieuw</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private List<Word> Words { get; set; }
+    private Word CurrentWord { get; set; }
+    private List<string> CurrentOptions { get; set; }
+    private int CurrentWordIndex { get; set; }
+    private string Feedback { get; set; }
+    private int Score { get; set; }
+
+    protected override void OnInitialized()
+    {
+        StartNewQuiz();
+    }
+
+    private void StartNewQuiz()
+    {
+        Words = WordData.Words.OrderBy(w => Guid.NewGuid()).Take(10).ToList();
+        CurrentWordIndex = 0;
+        Score = 0;
+        Feedback = string.Empty;
+        LoadCurrentWord();
+    }
+
+    private void LoadCurrentWord()
+    {
+        CurrentWord = Words[CurrentWordIndex];
+        var incorrectOptions = WordData.Words
+            .Where(w => w.Korean != CurrentWord.Korean)
+            .Select(w => w.Dutch)
+            .OrderBy(w => Guid.NewGuid())
+            .Take(3)
+            .ToList();
+
+        CurrentOptions = incorrectOptions.Append(CurrentWord.Dutch).OrderBy(o => Guid.NewGuid()).ToList();
+    }
+
+    private void SelectAnswer(string selectedOption)
+    {
+        if (selectedOption == CurrentWord.Dutch)
+        {
+            Score++;
+        }
+
+        CurrentWordIndex++;
+
+        if (CurrentWordIndex < Words.Count)
+        {
+            LoadCurrentWord();
+        }
+        else
+        {
+            Feedback = $"Je score is <strong>{Score}</strong> van de {Words.Count}. Goed gedaan!";
+        }
+    }
+
+    private void CloseModal()
+    {
+        StartNewQuiz();
+    }
+}

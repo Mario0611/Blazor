@@ -1,0 +1,37 @@
+﻿@page "/"
+
+<PageTitle>thuispagina</PageTitle>
+
+
+<h1>@periodeDag(), welkom op mijn tea-kwon-do applicatie</h1>
+<p>De Home pagina gaat over mijn ervarning in de sport. Ik zelf de sport al 15jaar ervarning met 15jaar wedstrijd op mijn naam.
+     Als hulptrainer en onderweg naar trainer van mijn grootvader zijn club.
+     Meer informatie over de club MUNMU Lier vind je op de <a href="https://munmulier.be/">website</a> </p>
+
+<div class="d-flex align-items-center flex-column">
+        <img src="img/Canva Mun Mu Lier.png" width="800px">
+        <h5 class="card-title">foto van de club</h5>
+        <p class="card-text">
+            deze foto laat een deel van de club zien waar mijn grootvader nog bij stond. 
+            deze foto is van in de tijden van corona nog getrokken.
+            In de foto sta ik naast mijn grootvader en had toen groen-blauw waar Ik 8jaar met rond gelopen heb.
+        </p>
+</div>
+
+@code
+{
+    private DateTime time = DateTime.Now;
+    public string periodeDag()
+    {
+        if (time.Hour >= 0 && time.Hour <= 5)
+            return "Goedenacht";
+        else if (time.Hour >= 6 && time.Hour <= 11)
+            return "Goedemorgen";
+        else if (time.Hour >= 12 && time.Hour <= 17)
+            return "Goedemiddag";
+        else if (time.Hour >= 18 && time.Hour <= 23)
+            return "Goedeavond";
+        else
+            return "Goededag";
+    }
+}
